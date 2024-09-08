@@ -1,0 +1,110 @@
+<header class="header">
+    <h2 class="welcome-text">Bienvenido a Veneplast</h2>
+
+    <div class="user-profile">
+      <button mat-raised-button 
+              color="warn" 
+              (click)="CerrarSesion()">
+              Cerrar sesión
+      </button>
+    </div>
+</header>
+
+<div class="container">
+  
+    <!-- Botones de acciones -->
+    <div class="actions">
+        <div class="right-buttons">
+          <button mat-raised-button
+                  color="primary"
+                  (click)="Registrar()">
+            Nuevo Registro
+          </button>
+          <button mat-raised-button
+                  color="warn"
+                  [disabled]="!HaySeleccionado()"
+                  (click)="EliminarSeleccionado()">
+            Eliminar Registro
+          </button>
+          <button mat-raised-button
+                  color="primary"
+                  (click)="RecargarLista()">
+            Actualizar
+          </button>
+        </div>
+      </div>
+  
+    <!-- Cuadro de consulta con paginación -->
+    <div class="employee-table">
+      <table class="table">
+        <thead>
+            <tr>
+                <th mat-header-cell>
+                    <mat-checkbox [(ngModel)]="TodoSeleccionado" 
+                                  (change)="SeleccionarTodos()"></mat-checkbox>
+                </th>
+                <th mat-header-cell (click)="OrdernarPor('identificacion')">
+                  Identificación
+                  <button mat-icon-button>
+                    <mat-icon>
+                      {{ordenActual === 'identificacion' ? (ordenAscendente ? 'arrow_upward' : 'arrow_downward') : ''}}
+                    </mat-icon>
+                  </button>
+                </th>
+                <th mat-header-cell (click)="OrdernarPor('rol')">
+                  Rol
+                  <button mat-icon-button>
+                    <mat-icon>
+                      {{ordenActual === 'rol' ? (ordenAscendente ? 'arrow_upward' : 'arrow_downward') : ''}}
+                    </mat-icon>
+                  </button>
+                </th>
+                <th mat-header-cell (click)="OrdernarPor('fechaCreacion')">
+                  Fecha Creación
+                  <button mat-icon-button>
+                    <mat-icon>
+                      {{ ordenActual === 'fechaCreacion' ? (ordenAscendente ? 'arrow_upward' : 'arrow_downward') : '' }}
+                    </mat-icon>
+                  </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let empleado of ObtenerPaginado()">
+            <td mat-cell>
+                <mat-checkbox [(ngModel)]="empleado.selected"></mat-checkbox>
+            </td>
+            <td mat-cell>{{ empleado.identificacion }}</td>
+            <td mat-cell>{{ empleado.rol }}</td>
+            <td mat-cell>{{ empleado.fechaCreacion }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+  
+      <!-- Paginación -->
+      <div class="pagination">
+        <button (click)="PaginaAnterior()" 
+                [disabled]="PaginaActual === 1"
+                mat-raised-button
+                color="warn">
+                Anterior
+        </button>
+        <span>Página {{ PaginaActual }}  de  {{ObtenerTotalPaginas()}}</span>
+        <button (click)="SiguientePagina()" 
+                mat-raised-button
+                color="primary"
+                [disabled]="PaginaActual === ObtenerTotalPaginas()">
+                Siguiente
+        </button>
+      </div>
+    </div>
+
+    <div class="loading-overlay" *ngIf="Cargando">
+      <div class="spinner"></div>
+      <p>Cargando...</p>
+    </div>
+
+  </div>
+  

@@ -1,0 +1,107 @@
+<div class="principal">
+    <header class="header">
+      <h2 class="welcome-text">Consultor de estados sobre los pedidos</h2>
+
+      <div class="user-profile">
+        <button mat-raised-button 
+                color="warn" 
+                (click)="CerrarSesion()">
+                Cerrar sesión
+        </button>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="contenido">
+        <h4 style="font-weight: bold;">Consulta de pedidos para supervisores</h4>
+    
+        <form [formGroup]="form">
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Inicial</mat-label>
+              <input matInput 
+                     [matDatepicker]="pickerInitial" 
+                     (dateChange)="onDateChange('initial', $event)" 
+                     id="FechaInicial" 
+                     placeholder="Ingrese la fecha Inicial" 
+                     formControlName="fechaInicial"
+                     required>
+              <mat-datepicker-toggle matSuffix [for]="pickerInitial"></mat-datepicker-toggle>
+              <mat-datepicker #pickerInitial></mat-datepicker>
+              <div *ngIf="form.get('fechaInicial')?.invalid && form.get('fechaInicial')?.touched" class="error">
+                Fecha inicial es requerida
+              </div>
+            </mat-form-field>
+          </div>
+          
+          <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Final</mat-label>
+              <input matInput 
+                     [matDatepicker]="pickerFinal" 
+                     (dateChange)="onDateChange('final', $event)" 
+                     id="FechaFinal" 
+                     placeholder="Ingrese la fecha Final" 
+                     [matDatepickerFilter]="dateFilter"
+                     formControlName="fechaFinal"
+                     required>
+              <mat-datepicker-toggle matSuffix [for]="pickerFinal"></mat-datepicker-toggle>
+              <mat-datepicker #pickerFinal></mat-datepicker>
+              <div *ngIf="form.get('fechaFinal')?.invalid && form.get('fechaFinal')?.touched" class="error">
+                Fecha final es requerida
+              </div>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <input type="text" 
+                   id="Nombre" 
+                   name="Nombre" 
+                   formControlName="nombre" 
+                   placeholder="Ingrese el nombre" 
+                   class="text-input"
+                   required>
+            <div *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="error">
+              Nombre es requerido
+            </div>
+          </div>
+    
+          <br>      
+    
+          <div>
+            <input type="text" 
+                   id="Apellido" 
+                   name="Apellido" 
+                   formControlName="apellido" 
+                   placeholder="Ingrese el Apellido"
+                   class="text-input" 
+                   required>
+            <div *ngIf="form.get('apellido')?.invalid && form.get('apellido')?.touched" class="error">
+              Apellido es requerido
+            </div>
+          </div>
+    
+          <br><br>
+    
+          <div class="buttons">
+            <button mat-raised-button 
+                    color="primary" 
+                    (click)="ObtenerEstados()">
+                    Buscar
+            </button>
+            <button mat-raised-button 
+                    color="warn" 
+                    (click)="LimpiarTodo()">
+                    Limpiar
+            </button>
+          </div>
+        </form>
+
+        <div class="loading-overlay" *ngIf="Cargando">
+          <div class="spinner"></div>
+          <p>Cargando...</p>
+        </div>
+
+      </div>
+    </div>
+</div>

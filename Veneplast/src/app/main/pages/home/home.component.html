@@ -1,0 +1,73 @@
+<div class="principal">
+    <header class="header">
+      <h2>Bienvenido a Veneplast</h2>
+    </header>
+    
+    <div class="container">
+      <div class="contenido">
+        <h4 style="font-weight: bold;">Inicie sesión</h4>
+    
+        <form [formGroup]="form">              
+          <div>
+            <input type="text" 
+                   id="Identificacion" 
+                   name="Identificacion" 
+                   formControlName="Identificacion" 
+                   placeholder="Ingrese su Identificación" 
+                   class="text-input"
+                   required>
+            <div *ngIf="form.get('Identificacion')?.invalid && form.get('Identificacion')?.touched" class="error">
+              la Identificacion es requerido
+            </div>
+          </div>
+    
+          <br>
+    
+          <div>
+            <input type="password" 
+                   id="Contraseña" 
+                   name="Contraseña" 
+                   formControlName="Contraseña" 
+                   placeholder="Ingrese su Contraseña"
+                   class="text-input" 
+                   required>
+            <div *ngIf="form.get('Contraseña')?.invalid && form.get('Contraseña')?.touched" class="error">
+              la Contraseña es requerido
+            </div>
+          </div>
+    
+          <br>
+    
+          <div class="buttons">
+            <button mat-raised-button 
+                    color="primary" 
+                    (click)="IniciarSesion()">
+                    Iniciar sesión
+            </button>
+            <button mat-raised-button 
+                    color="warn" 
+                    (click)="LimpiarTodo()">
+                    Limpiar
+            </button>            
+          </div>
+
+          <br>
+
+          <div class="registrar">
+            <p>No tienes una cuenta?   </p>
+            <button mat-raised-button 
+                    color="primary"
+                    (click)="Registrar()">
+                    Registrar
+            </button>
+          </div>
+
+        </form>
+
+        <div class="loading-overlay" *ngIf="Cargando">
+          <div class="spinner"></div>
+          <p>Cargando...</p>
+        </div>
+      </div>
+    </div>
+</div>

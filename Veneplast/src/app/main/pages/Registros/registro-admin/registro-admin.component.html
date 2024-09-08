@@ -1,0 +1,125 @@
+<header class="header">
+    <h2>Registro de empleados y supervisores</h2>
+  </header>
+
+<div class="container">
+
+    <div class="contenido">
+
+        <h4 style="font-weight: bold;">Registrar</h4>
+
+        <form [formGroup]="form" class="form">
+
+            <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Elija su Rol</mat-label>
+                  <mat-select formControlName="Rol" required="">
+                    <mat-option value="Empleado">Empleado</mat-option>
+                    <mat-option value="Supervisor">Supervisor</mat-option>
+                    <mat-option value="Cliente">Cliente</mat-option>
+                  </mat-select>
+                  <div *ngIf="form.get('Rol')?.invalid && form.get('Rol')?.touched" class="error">
+                    El Rol es requerido
+                  </div>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Tipo de Persona</mat-label>
+                  <mat-select formControlName="TipoPersona" required="">
+                    <mat-option value="Natural">Persona Natural</mat-option>
+                  </mat-select>
+                  <div *ngIf="form.get('TipoPersona')?.invalid && form.get('TipoPersona')?.touched" class="error">
+                    Tipo de persona es requerida
+                  </div>
+                </mat-form-field>
+            </div>
+
+            <div>        
+                <input  type="text"
+                        id="Nombre"
+                        name="Nombre"
+                        formControlName="Nombre"
+                        placeholder="Ingrese el nombre"
+                        class="text-input"
+                        required="">
+                <div *ngIf="form.get('Nombre')?.invalid && form.get('Nombre')?.touched" class="error">
+                    El Nombre es requerido
+                </div>
+            </div>
+    
+            <br>
+
+            <div>        
+                <input  type="text"
+                        id="Identificacion"
+                        name="Identificacion"
+                        maxlength="10"
+                        formControlName="Identificacion"
+                        placeholder="Identificacion"
+                        class="text-input"
+                        required="">
+                <div *ngIf="form.get('Identificacion')?.invalid && form.get('Identificacion')?.touched" class="error">
+                    La Identificación es requerida
+                </div>
+            </div>
+
+            <br>
+
+            <div>
+                <input type="password"
+                       id="Contraseña"
+                       name="Contraseña"
+                       formControlName="Contraseña"
+                       placeholder="Ingrese la Contraseña"
+                       class="text-input"
+                       required>
+                <div *ngIf="form.get('Contraseña')?.invalid && form.get('Contraseña')?.touched" class="error">
+                    La Contraseña es requerida
+                </div>
+            </div>
+
+            <br>
+
+            <div>
+                <input type="password"
+                       id="Contraseña2"
+                       name="Contraseña2"
+                       formControlName="Contraseña2"
+                       placeholder="Repita la Contraseña"
+                       class="text-input"
+                       required>
+                <div *ngIf="form.get('Contraseña2')?.invalid && form.get('Contraseña2')?.touched" class="error">
+                    La Verificación de Contraseña es requerida
+                </div>
+            </div>
+
+            <br>
+    
+            <div class="buttons">
+                <button mat-raised-button
+                        color="primary"
+                        (click)="RegistrarUsuario()">
+                    Registrar
+                </button>
+                <button mat-raised-button
+                        color="warn"
+                        (click)="LimpiarTodo()">
+                    Limpiar
+                </button>
+                <button mat-raised-button
+                        color="primary"
+                        (click)="Retroceder()">
+                    Atras
+                </button>
+            </div>
+        </form>
+
+        <div class="loading-overlay" *ngIf="Cargando">
+            <div class="spinner"></div>
+            <p>Cargando...</p>
+          </div>
+    </div>
+
+</div>

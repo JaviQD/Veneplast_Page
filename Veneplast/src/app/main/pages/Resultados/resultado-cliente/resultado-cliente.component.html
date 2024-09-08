@@ -1,0 +1,32 @@
+<header class="header">
+    <h2 class="welcome-text">Resultados sobre la Consulta de Pedidos</h2>
+
+    <div class="user-profile">
+      <button mat-raised-button 
+              color="warn" 
+              (click)="Retroceder()">
+              Atras
+      </button>
+    </div>
+</header>
+
+<div id="pedidos-container">
+    <div *ngFor="let pedido of pedidos" class="pedido">
+      <h3>Pedido: {{ pedido.nombre }}</h3>
+      <div class="estados">
+        <div *ngFor="let estado of ObtenerPedidos(pedido.estados)" class="estado" [ngClass]="{'activo': estado.activo}">
+          <strong>{{ estado.nombre }}</strong>
+        </div>
+        <button mat-raised-button
+                color="primary"
+                (click)="DescargarPdf(pedido)"
+                [disabled]="!EsEntregadoActivo(pedido)">
+          Descagar PDF
+        </button>
+      </div>
+    </div>
+    <div class="loading-overlay" *ngIf="Cargando">
+      <div class="spinner"></div>
+      <p>Cargando...</p>
+    </div>
+</div>

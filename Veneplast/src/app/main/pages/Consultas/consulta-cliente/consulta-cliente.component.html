@@ -1,0 +1,57 @@
+<div class="principal">
+  <header class="header">
+    <h2 class="welcome-text">Consultor de estados sobre los pedidos</h2>
+
+    <div class="user-profile">
+      <button mat-raised-button 
+              color="warn" 
+              (click)="CerrarSesion()">
+              Cerrar sesión
+      </button>
+    </div>
+  </header>
+
+    <div class="container">
+      <div class="contenido">
+        <h4 style="font-weight: bold;">Consulta de pedidos para clientes</h4>
+
+        <br>
+    
+        <form [formGroup]="form">
+          <div>
+            <input type="number" 
+                   id="Nit" 
+                   name="Nit" 
+                   formControlName="Nit" 
+                   placeholder="Ingrese la Identificacion sin digito de Verificación" 
+                   class="text-input"
+                   required>
+            <div *ngIf="form.get('Nit')?.invalid && form.get('Nit')?.touched" class="error">
+              Identificacion es requerido
+            </div>
+          </div>
+    
+          <br><br>
+    
+          <div class="buttons">
+            <button mat-raised-button 
+                    color="primary"
+                    (click)="BuscarPedidos()">
+                    Buscar
+            </button>
+            <button mat-raised-button 
+                    color="warn"
+                    (click)="LimpiarTodo()">
+                    Limpiar
+            </button>
+          </div>
+        </form>
+
+        <div class="loading-overlay" *ngIf="Cargando">
+          <div class="spinner"></div>
+          <p>Cargando...</p>
+        </div>
+
+      </div>
+    </div>
+</div>
